@@ -96,7 +96,7 @@ class AuthHandler:
         # Using `UserModel._default_manager.get_by_natural_key` handles custom
         # user model and `USERNAME_FIELD` setting
         try:
-            user = UserModel._default_manager.get_by_natural_key(email)  # type: ignore
+            user = UserModel._default_manager.get_by_natural_key(azure_user["userPrincipalName"])  # type: ignore
         except UserModel.DoesNotExist:
             user = UserModel._default_manager.create_user(username=azure_user["userPrincipalName"], email=email)  # type: ignore
             user.first_name = attr if (attr := azure_user["givenName"]) else ""
